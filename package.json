@@ -1,0 +1,19 @@
+{
+  "name": "wiki-pages",
+  "version": "1.0.0",
+  "description": "A wikipedia clone application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuLaValva/AdvancedJavascriptWorkshop-Wiki.git"
+  },
+  "author": "APWJS - Group 2",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuLaValva/AdvancedJavascriptWorkshop-Wiki/issues"
+  },
+  "homepage": "https://github.com/LuLaValva/AdvancedJavascriptWorkshop-Wiki#readme"
+}
