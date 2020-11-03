@@ -2,8 +2,8 @@ window.onload = () => {
   update_page();
 };
 
-function perform_get(page_extension, callback) {
-  fetch(page_extension, { method: "GET" })
+function perform_get(page_endpoint, callback) {
+  fetch(page_endpoint, { method: "GET" })
     .then((response) => {
       if (response.ok) return response.json();
       throw new Error("Request Failed");
@@ -53,12 +53,16 @@ function generateContents(container, modules) {
 
     edit_button.addEventListener("click", () => {
       editable_content.value = display_content.innerHTML;
-      console.log(editable_content.innerHTML);
       module.replaceChild(edit_window, display_window);
     });
 
     submit_changes_button.addEventListener("click", () => {
       display_content.innerHTML = editable_content.value;
+      fetch("/submit_changes", { method: "POST" }).then((response) => {
+        // do something here
+        // This is what we have to figure out now
+        // fetch probably also isn't the right command to use for this
+      });
       module.replaceChild(display_window, edit_window);
     });
 
@@ -70,9 +74,7 @@ function generateContents(container, modules) {
   });
 }
 
-function set_up_buttons() {
-  document.getE;
-}
+function set_up_buttons() {}
 
 // const button = document.getElementById("myButton");
 // button.addEventListener("click", function (e) {

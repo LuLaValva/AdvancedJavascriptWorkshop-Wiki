@@ -51,7 +51,10 @@ app.get("/contents", (_req, res) => {
 
 app.post("/submit_changes", (req, res) => {
   // TODO
-  db.collection("pages").updateOne({}, {});
+  db.collection("pages").updateOne(
+    {},
+    { $set: { "modules.0.content": "test" } }
+  );
 });
 
 // get the click data from the database
