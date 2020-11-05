@@ -32,6 +32,7 @@ function generateContents(container, modules) {
 
     let display_content = document.createElement("p");
     display_content.innerHTML = value.content;
+    display_content.id = `module_${index}_display`;
     let edit_button = document.createElement("button");
     edit_button.innerHTML = "Edit";
 
@@ -58,11 +59,20 @@ function generateContents(container, modules) {
 
     submit_changes_button.addEventListener("click", () => {
       display_content.innerHTML = editable_content.value;
-      fetch("/submit_changes", { method: "POST" }).then((response) => {
-        // do something here
-        // This is what we have to figure out now
-        // fetch probably also isn't the right command to use for this
+
+      fetch("/submit_changes", {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/json;charset=utf-8",
+        }),
+        body: JSON.stringify({
+          index: index,
+          content: display_content.innerHTML,
+        }),
+      }).then((response) => {
+        console.log("successfully updated");
       });
+
       module.replaceChild(display_window, edit_window);
     });
 
