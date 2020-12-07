@@ -1,0 +1,33 @@
+.editbutton {
+  color: blue;
+  font-size: 0.75em;
+}
+
+.editbutton:hover {
+  text-decoration: underline;
+}
+
+.moduletitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.editing {
+  border: 1px solid grey;
+  border-radius: 4px;
+}
+
+h2 {
+  padding: 0.25em;
+  margin: 0;
+}
+
+.content {
+  padding: 0.5em;
+}
+
+.module {
+  border-top: 1px solid black;
+  padding-top: 1em;
+}

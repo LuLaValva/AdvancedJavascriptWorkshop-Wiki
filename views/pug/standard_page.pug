@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+    head
+        title #{title}
+        link(rel="stylesheet", href="../css/styles.css", type="text/css")
+        script(src="../js/standard_page_client.js", type="text/javascript")
+    body
+        h1.title #{title}
+        p.content #{description}
+        for section, index in modules
+            div.module(id="m_"+index)
+                div.moduletitle
+                    h2.name #{section.name}
+                    h2 &nbsp&nbsp
+                    span.editbutton(onclick="toggleModuleEditMode(this)") (edit)
+                p.content #{section.content}
+            

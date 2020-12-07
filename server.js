@@ -1,54 +1,60 @@
-console.log("Server-side code running");
-
 const express = require("express");
 const MongoClient = require("mongodb").MongoClient;
 
+/*
+    set up express and views
+*/
 const app = express();
-
-// serve files from the public directory
-app.use(express.static("public"));
+app.set("view engine", "pug");
+app.use(express.static("views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// connect to the db and start the express server
+/*
+    Connect to Mongo Database and start the application
+*/
 let db;
-
-// URL of the localhost database using the command `mongod`
-const url = "mongodb://127.0.0.1:27017";
-
+const url = "mongodb://127.0.0.1/27017";
 MongoClient.connect(url, (err, client) => {
   if (err) {
-    return console.log(err);
+    console.log(err);
   }
+  db = client.db("WikiDB");
 
-  // grabbed database by name from the client
-  db = client.db("wiki_clone");
-
-  // start the express web server listening on 8080
-  app.listen(8080, () => {
-    console.log("listening on 8080");
+  app.listen(3000, () => {
+    console.log("Listening on port 3000...");
   });
 });
 
-// serve the homepage
-app.get("/", (_req, res) => {
-  res.sendFile(__dirname + "/index.html");
+/*
+    Configure Webhooks
+*/
+app.get("/", async (req, res) => {
+  res.render("pug/menu");
 });
 
-// fetch the contents of a single page
-app.get("/contents", (_req, res) => {
-  db.collection("pages")
-    .findOne()
-    .then((result) => res.send(result));
+app.get("/page/:pagetitle", async (req, res) => {
+  const pageinfo = await db
+    .collection("pages")
+    .findOne({ endpoint: req.params.pagetitle });
+
+  if (pageinfo) {
+    res.render("pug/standard_page", pageinfo);
+  } else {
+    res.redirect("/404notfound");
+  }
 });
 
-// submit some JSON data via req.body in the following format:
-// {index: <module index>, content: <module page content>}
-app.post("/submit_changes", (req, res) => {
+app.get("/404notfound", (req, res) => {
+  res.render("pug/404notfound");
+});
+
+app.post("/page/:pagetitle/update_module", (req, res) => {
   db.collection("pages").updateOne(
-    {},
+    { endpoint: req.params.pagetitle },
     {
       $set: {
+        [`modules.${req.body.index}.name`]: req.body.name,
         [`modules.${req.body.index}.content`]: req.body.content,
       },
     }

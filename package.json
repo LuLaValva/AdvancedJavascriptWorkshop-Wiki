@@ -18,6 +18,7 @@
   "homepage": "https://github.com/LuLaValva/AdvancedJavascriptWorkshop-Wiki#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongodb": "^3.6.2"
+    "mongodb": "^3.6.2",
+    "pug": "^3.0.0"
   }
 }
