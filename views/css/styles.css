@@ -7,6 +7,13 @@
   text-decoration: underline;
 }
 
+.editbutton::before {
+  content: "(";
+}
+.editbutton::after {
+  content: ")";
+}
+
 .moduletitle {
   display: flex;
   flex-direction: row;

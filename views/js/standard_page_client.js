@@ -4,12 +4,12 @@ function toggleModuleEditMode(element) {
   content = container.children[1];
 
   if (container.classList.toggle("editmode")) {
-    element.innerHTML = "(submit)";
+    element.innerHTML = "submit";
 
     setEditMode(title, true);
     setEditMode(content, true);
   } else {
-    element.innerHTML = "(edit)";
+    element.innerHTML = "edit";
 
     setEditMode(title, false);
     setEditMode(content, false);
