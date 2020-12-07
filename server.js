@@ -14,12 +14,14 @@ app.use(express.urlencoded({ extended: true }));
     Connect to Mongo Database and start the application
 */
 let db;
+let pagesdb;
 const url = "mongodb://127.0.0.1/27017";
 MongoClient.connect(url, (err, client) => {
   if (err) {
     console.log(err);
   }
   db = client.db("WikiDB");
+  pagesdb = db.collection("pages");
 
   app.listen(3000, () => {
     console.log("Listening on port 3000...");
@@ -30,13 +32,13 @@ MongoClient.connect(url, (err, client) => {
     Configure Webhooks
 */
 app.get("/", async (req, res) => {
+  // Find ALL pages, but only grab the `endpoint` and the `title`
+  // List all of the titles out with Pug as links (a href=/page/endpoint)
   res.render("pug/menu");
 });
 
 app.get("/page/:pagetitle", async (req, res) => {
-  const pageinfo = await db
-    .collection("pages")
-    .findOne({ endpoint: req.params.pagetitle });
+  const pageinfo = await pagesdb.findOne({ endpoint: req.params.pagetitle });
 
   if (pageinfo) {
     res.render("pug/standard_page", pageinfo);
@@ -50,7 +52,7 @@ app.get("/404notfound", (req, res) => {
 });
 
 app.post("/page/:pagetitle/update_module", (req, res) => {
-  db.collection("pages").updateOne(
+  pagesdb.updateOne(
     { endpoint: req.params.pagetitle },
     {
       $set: {
