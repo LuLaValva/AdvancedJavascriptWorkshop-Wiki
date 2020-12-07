@@ -5,8 +5,12 @@ html(lang='en')
         link(rel="stylesheet", href="../css/styles.css", type="text/css")
         script(src="../js/standard_page_client.js", type="text/javascript")
     body
-        h1.title #{title}
-        p.content #{description}
+        div.module(id="m_-1")
+            div.moduletitle
+                h1.title #{title}
+                span.editbutton(onclick="toggleModuleEditMode(this)") edit
+            p.content #{description}
+
         for section, index in modules
             div.module(id="m_"+index)
                 div.moduletitle

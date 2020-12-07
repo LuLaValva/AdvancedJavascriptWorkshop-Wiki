@@ -52,12 +52,21 @@ app.get("/404notfound", (req, res) => {
 });
 
 app.post("/page/:pagetitle/update_module", (req, res) => {
+  let titleItem, contentItem;
+  if (req.body.index == -1) {
+    //Module index of -1 refers to the title  and description
+    titleItem = "title";
+    contentItem = "description";
+  } else {
+    titleItem = `modules.${req.body.index}.name`;
+    contentItem = `modules.${req.body.index}.content`;
+  }
   pagesdb.updateOne(
     { endpoint: req.params.pagetitle },
     {
       $set: {
-        [`modules.${req.body.index}.name`]: req.body.name,
-        [`modules.${req.body.index}.content`]: req.body.content,
+        [titleItem]: req.body.name,
+        [contentItem]: req.body.content,
       },
     }
   );
