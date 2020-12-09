@@ -31,12 +31,15 @@ MongoClient.connect(url, (err, client) => {
 /*
     Configure Webhooks
 */
+
+// Ahmed
 app.get("/", async (req, res) => {
   // Find ALL pages, but only grab the `endpoint` and the `title`
   // List all of the titles out with Pug as links (a href=/page/endpoint)
   res.render("pug/menu");
 });
 
+// Lucas LaValva
 app.get("/page/:pagetitle", async (req, res) => {
   const pageinfo = await pagesdb.findOne({ endpoint: req.params.pagetitle });
 
@@ -49,16 +52,19 @@ app.get("/page/:pagetitle", async (req, res) => {
   }
 });
 
+// James Reick
 app.get("/newarticle", (req, res) => {
   // Make title and description, then send it via a fetch to /newArticleToDB
   res.render("pug/make_new_article");
   // after receiving "success" from "/newArticleToDB", redirect to /page/<new endpoint>
 });
 
+// Nana
 app.get("/404notfound", (req, res) => {
   res.render("pug/404notfound");
 });
 
+// James Reick
 app.post("/newArticleToDB", (req, res) => {
   // Save the JSON stuff to the database
   // Maybe generate a "endpoint" from the title
@@ -66,6 +72,7 @@ app.post("/newArticleToDB", (req, res) => {
   res.send("success");
 });
 
+// Lucas LaValva
 app.post("/page/:pagetitle/update_module", (req, res) => {
   let titleItem, contentItem;
   if (req.body.index == -1) {
@@ -88,6 +95,7 @@ app.post("/page/:pagetitle/update_module", (req, res) => {
   res.send("success");
 });
 
+// Matt Bergen
 app.post("/page/:pagetitle/add_new_module", (req, res) => {
   /*
     Find the mongo command that adds a new item to a list.
@@ -102,6 +110,7 @@ app.post("/page/:pagetitle/add_new_module", (req, res) => {
   res.send("success");
 });
 
+// Matt Bergen
 app.post("/page/:pagetitle/remove_module", (req, res) => {
   /*
     Remove a module from the list of modules
