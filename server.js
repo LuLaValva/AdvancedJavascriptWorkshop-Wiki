@@ -48,7 +48,7 @@ app.get("/page/:pagetitle", async (req, res) => {
   } else {
     // TODO: Add information about the page that wasn't found
     // Maybe have automatic redirect or a button to go back to main menu
-    res.render("pug/404notfound");
+    res.render("pug/404notfound", { title: req.params.pagetitle });
   }
 });
 
@@ -61,7 +61,7 @@ app.get("/newarticle", (req, res) => {
 
 // Nana
 app.get("/404notfound", (req, res) => {
-  res.render("pug/404notfound");
+  res.render("pug/404notfound", {Title: "None"});
 });
 
 // James Reick
