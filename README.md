@@ -6,6 +6,7 @@ Group Members:
 Lucas LaValva
 James  Reick
 Nana Adu-abankro
+
 NPM Packages used:
 express
 mongodb
