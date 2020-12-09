@@ -32,7 +32,7 @@ MongoClient.connect(url, (err, client) => {
     Configure Webhooks
 */
 
-// Ahmed
+// Zulfikar Ahmed
 app.get("/", async (req, res) => {
   // Find ALL pages, but only grab the `endpoint` and the `title`
   // List all of the titles out with Pug as links (a href=/page/endpoint)
@@ -46,8 +46,7 @@ app.get("/page/:pagetitle", async (req, res) => {
   if (pageinfo) {
     res.render("pug/standard_page", pageinfo);
   } else {
-    // TODO: Add information about the page that wasn't found
-    // Maybe have automatic redirect or a button to go back to main menu
+    // Nana Adu-abankro
     res.render("pug/404notfound", { title: req.params.pagetitle });
   }
 });
@@ -59,9 +58,9 @@ app.get("/newarticle", (req, res) => {
   // after receiving "success" from "/newArticleToDB", redirect to /page/<new endpoint>
 });
 
-// Nana
+// Nana Adu-abankro
 app.get("/404notfound", (req, res) => {
-  res.render("pug/404notfound", {Title: "None"});
+  res.render("pug/404notfound", { Title: "None" });
 });
 
 // James Reick
