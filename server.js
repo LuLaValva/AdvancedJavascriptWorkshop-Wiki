@@ -43,12 +43,27 @@ app.get("/page/:pagetitle", async (req, res) => {
   if (pageinfo) {
     res.render("pug/standard_page", pageinfo);
   } else {
-    res.redirect("/404notfound");
+    // TODO: Add information about the page that wasn't found
+    // Maybe have automatic redirect or a button to go back to main menu
+    res.render("pug/404notfound");
   }
+});
+
+app.get("/newarticle", (req, res) => {
+  // Make title and description, then send it via a fetch to /newArticleToDB
+  res.render("pug/make_new_article");
+  // after receiving "success" from "/newArticleToDB", redirect to /page/<new endpoint>
 });
 
 app.get("/404notfound", (req, res) => {
   res.render("pug/404notfound");
+});
+
+app.post("/newArticleToDB", (req, res) => {
+  // Save the JSON stuff to the database
+  // Maybe generate a "endpoint" from the title
+  //     (convert to all lowercase, underscores instead of spaces)
+  res.send("success");
 });
 
 app.post("/page/:pagetitle/update_module", (req, res) => {
@@ -70,5 +85,26 @@ app.post("/page/:pagetitle/update_module", (req, res) => {
       },
     }
   );
+  res.send("success");
+});
+
+app.post("/page/:pagetitle/add_new_module", (req, res) => {
+  /*
+    Find the mongo command that adds a new item to a list.
+    Append an item to the end of the "modules" array
+    The item should look like this (for now):
+        {
+          name: "Default Name",
+          content: "Default Content"
+        }
+    I think that's it
+  */
+  res.send("success");
+});
+
+app.post("/page/:pagetitle/remove_module", (req, res) => {
+  /*
+    Remove a module from the list of modules
+  */
   res.send("success");
 });
