@@ -32,10 +32,16 @@ MongoClient.connect(url, (err, client) => {
     Configure Webhooks
 */
 
-// Zulfikar Ahmed
+// Zulfikar Ahmed (
+//  - Fetch all of the endpoints/titles
+//  - Make a list of hyperlinks in Pug using a for each loop)
+// Evan O'Donnell (
+//  - Add search bar to the top that passes a query to this page
+//  - Grab req.query and filter out all of the searches that don't match
+//  )
 app.get("/", async (req, res) => {
   // Find ALL pages, but only grab the `endpoint` and the `title`
-  // List all of the titles out with Pug as links (a href=/page/endpoint)
+  // List all of the titles out with Pug as links (a href="/page/" + endpoint)
   res.render("pug/menu");
 });
 
