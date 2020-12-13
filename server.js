@@ -120,7 +120,7 @@ app.post("/page/:pagetitle/add_new_module", (req, res) => {
     { endpoint: req.params.pagetitle },
     {
       $push: {
-        modules: { title: "Default Title", content: "Default Content" },
+        modules: { name: "Default Title", content: "Default Content" },
       },
     }
   );

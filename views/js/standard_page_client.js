@@ -36,6 +36,15 @@ function updateModuleWithHTTP(moduleIndex, updatedName, updatedContent) {
   });
 }
 
+function addNewModule() {
+  fetch(`${window.location.href}/add_new_module`, {
+    method: "POST",
+    headers: new Headers({
+      "Content-Type": "application/json;charset=utf-8",
+    }),
+  });
+}
+
 function setEditMode(element, canEdit) {
   if (canEdit) {
     element.classList.add("editing");
