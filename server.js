@@ -116,16 +116,14 @@ app.post("/page/:pagetitle/update_module", (req, res) => {
 
 // Matt Bergen
 app.post("/page/:pagetitle/add_new_module", (req, res) => {
-  /*
-    Find the mongo command that adds a new item to a list.
-    Append an item to the end of the "modules" array
-    The item should look like this (for now):
-        {
-          name: "Default Name",
-          content: "Default Content"
-        }
-    I think that's it
-  */
+  pagesdb.updateOne(
+    { endpoint: req.params.pagetitle },
+    {
+      $push: {
+        modules: { title: "Default Title", content: "Default Content" },
+      },
+    }
+  );
   res.send("success");
 });
 
