@@ -32,13 +32,21 @@ MongoClient.connect(url, (err, client) => {
     Configure Webhooks
 */
 
-// Zulfikar Ahmed (
-
+// Zulfikar Ahmed (Display list of elements)
+// Evan O'Donnell (Filter the list based on a query)
 app.get("/", async (req, res) => {
+  search_element = req.query["question"];
+
   // Find ALL page entries in the database
-  const entries = await (
+  let entries = await (
     await pagesdb.find({}, { endpoint: 1, title: 1, _id: 0 })
   ).toArray();
+
+  if (search_element) {
+    entries = entries.filter((entry) => {
+      return entry.title.toLowerCase().match(search_element.toLowerCase());
+    });
+  }
 
   // make array of pages with title and link
   const pages = entries.map((entry) => ({
@@ -49,16 +57,6 @@ app.get("/", async (req, res) => {
   res.render("pug/menu", {
     pages: pages,
   });
-});
-
-// Evan O'Donnell (
-//  - Add search bar to the top that passes a query to this page
-//  - Grab req.query and filter out all of the searches that don't match
-//  )
-app.get("/", async (req, res) => {
-  // Find ALL pages, but only grab the `endpoint` and the `title`
-  // List all of the titles out with Pug as links (a href="/page/" + endpoint)
-  res.render("pug/menu");
 });
 
 // Lucas LaValva

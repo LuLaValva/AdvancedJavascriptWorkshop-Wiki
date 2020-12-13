@@ -5,6 +5,12 @@ html
 		title JavaScript Workshop Wiki
 	body
 		h1 Advanced JavaScript Workshop - Wiki Page
+		form(action="/", method="get")
+			input(type="text" name="question")
+			input(type="submit" value="Submit")
 		ul
-			each page in pages
-				li: a(href=page.link)= page.title
+			if pages.length > 0
+				each page in pages
+					li: a(href=page.link)= page.title
+			else
+				h3 NO PAGES FOUND
