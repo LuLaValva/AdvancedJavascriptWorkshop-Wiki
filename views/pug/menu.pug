@@ -1,6 +1,10 @@
 doctype html
 html
-    head   
-        title JavaScript Workshop Wiki
-    body
-        h1 Advanced JavaScript Workshop - Wiki Page
+	head
+		link(rel="stylesheet", href="../css/styles.css", type="text/css")
+		title JavaScript Workshop Wiki
+	body
+		h1 Advanced JavaScript Workshop - Wiki Page
+		ul
+			each page in pages
+				li: a(href=page.link)= page.title
