@@ -16,6 +16,8 @@ html(lang='en')
                 div.moduletitle
                     h2.name #{section.name}
                     span.editbutton(onclick="toggleModuleEditMode(this)") edit
+                    span.editbutton(onclick="deleteModule(this)") delete
+
                 p.content #{section.content}
         
         button(onclick="addNewModule()") Add Module
