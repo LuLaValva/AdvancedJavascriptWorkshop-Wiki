@@ -33,8 +33,25 @@ MongoClient.connect(url, (err, client) => {
 */
 
 // Zulfikar Ahmed (
-//  - Fetch all of the endpoints/titles
-//  - Make a list of hyperlinks in Pug using a for each loop)
+
+app.get("/", async (req, res) => {
+	// Find ALL page entries in the database
+	const entries = await (await pagesdb.find({}, {endpoint: 1, title: 1, _id: 0})).toArray();
+
+	// make array of pages with title and link
+	const pages = entries.map(entry => ({ title: entry.title, link: '/page/' + entry.endpoint }))
+	// for (let entry of entries) {
+	// 	pages.push({
+	// 		title: entry.title,
+	// 		link: '/page/' + entry.endpoint
+	// 	});
+	// }
+    res.render("pug/menu", {
+		pages: pages
+	});
+});
+
+    
 // Evan O'Donnell (
 //  - Add search bar to the top that passes a query to this page
 //  - Grab req.query and filter out all of the searches that don't match
