@@ -129,8 +129,8 @@ app.post("/page/:pagetitle/add_new_module", (req, res) => {
 
 // Matt Bergen
 app.post("/page/:pagetitle/remove_module", (req, res) => {
-  /*
-    Remove a module from the list of modules
-  */
+  req.body.index;
+  pagesdb.update({}, { $unset: { [`modules.${req.body.index}`]: 1 } });
+  pagesdb.update({}, { $pull: { modules: null } });
   res.send("success");
 });
