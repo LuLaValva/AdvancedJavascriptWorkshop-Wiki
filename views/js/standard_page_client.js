@@ -30,7 +30,7 @@ function deleteModule(element) {
     body: JSON.stringify({
       index: moduleIndex,
     }),
-  });
+  }).then(window.location.reload());
 
   // TODO:
   // Call some fetch to delete_module, where you pas in the index to "body"
@@ -59,7 +59,7 @@ function addNewModule() {
     headers: new Headers({
       "Content-Type": "application/json;charset=utf-8",
     }),
-  });
+  }).then(window.location.reload());
 }
 
 function setEditMode(element, canEdit) {
