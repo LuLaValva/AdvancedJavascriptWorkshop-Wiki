@@ -14,12 +14,15 @@ html(lang='en')
         if modules
             for section, index in modules
                 div.module(id="m_"+index)
-                    div.moduletitle
-                        h2.name #{section.name}
-                        span.editbutton(onclick="toggleModuleEditMode(this)") edit
-                        span.editbutton(onclick="deleteModule(this)") delete
+                    if section
+                        div.moduletitle
+                            h2.name #{section.name}
+                            span.editbutton(onclick="toggleModuleEditMode(this)") edit
+                            span.editbutton(onclick="deleteModule(this)") delete
 
-                    p.content #{section.content}
+                        p.content #{section.content}
+                    else
+                        p Section is a null value
             
         button(onclick="addNewModule()") Add Module
             

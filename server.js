@@ -131,13 +131,13 @@ app.post("/page/:pagetitle/add_new_module", (req, res) => {
 });
 
 // Matt Bergen
-app.post("/page/:pagetitle/remove_module", (req, res) => {
+app.post("/page/:pagetitle/remove_module", async (req, res) => {
   req.body.index;
-  pagesdb.update(
+  await pagesdb.update(
     { endpoint: req.params.pagetitle },
     { $unset: { [`modules.${req.body.index}`]: 1 } }
   );
-  pagesdb.update(
+  await pagesdb.update(
     { endpoint: req.params.pagetitle },
     { $pull: { modules: null } }
   );
