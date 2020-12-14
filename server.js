@@ -73,7 +73,6 @@ app.get("/page/:pagetitle", async (req, res) => {
 
 // James Reick
 app.get("/newarticle", (req, res) => {
-  // Make title and description, then send it via a fetch to /newArticleToDB
   res.render("pug/make_new_article");
   // after receiving "success" from "/newArticleToDB", redirect to /page/<new endpoint>
 });
@@ -84,7 +83,17 @@ app.get("/404notfound", (req, res) => {
 });
 
 // James Reick
-app.post("/newArticleToDB", (req, res) => {
+app.get("/newArticleToDB", (req, res) => {
+  pagesdb.insert({
+    endpoint: req.query["title"].replace(" ", "_").toLowerCase(),
+  title: req.query["title"],
+  description: "",
+  modules: []
+  });
+
+
+ 
+
   // Save the JSON stuff to the database
   // Maybe generate a "endpoint" from the title
   //     (convert to all lowercase, underscores instead of spaces)

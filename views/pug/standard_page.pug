@@ -11,14 +11,15 @@ html(lang='en')
                 span.editbutton(onclick="toggleModuleEditMode(this)") edit
             p.content #{description}
 
-        for section, index in modules
-            div.module(id="m_"+index)
-                div.moduletitle
-                    h2.name #{section.name}
-                    span.editbutton(onclick="toggleModuleEditMode(this)") edit
-                    span.editbutton(onclick="deleteModule(this)") delete
+        if modules
+            for section, index in modules
+                div.module(id="m_"+index)
+                    div.moduletitle
+                        h2.name #{section.name}
+                        span.editbutton(onclick="toggleModuleEditMode(this)") edit
+                        span.editbutton(onclick="deleteModule(this)") delete
 
-                p.content #{section.content}
-        
+                    p.content #{section.content}
+            
         button(onclick="addNewModule()") Add Module
             
