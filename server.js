@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 let db;
 let pagesdb;
 const url = "mongodb://127.0.0.1/27017";
-MongoClient.connect(url, (err, client) => {
+MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   if (err) {
     console.log(err);
   }
@@ -84,7 +84,7 @@ app.get("/404notfound", (req, res) => {
 // James Reick
 app.get("/newArticleToDB", (req, res) => {
   let endpoint = req.query["title"].replace(" ", "_").toLowerCase();
-  pagesdb.insert({
+  pagesdb.insertOne({
     endpoint: endpoint,
     title: req.query["title"],
     description: "",
@@ -133,11 +133,20 @@ app.post("/page/:pagetitle/add_new_module", (req, res) => {
 // Matt Bergen
 app.post("/page/:pagetitle/remove_module", async (req, res) => {
   req.body.index;
-  await pagesdb.update(
+  /*
+    Removing by a specific index is weird.
+    Because you can't $pull by a specific index, we have to do it in two steps:
+      1) Set that index to null
+      2) Remove all indicies which are currently null
+    
+    Source for this strategy:
+    https://stackoverflow.com/a/4588909
+  */
+  await pagesdb.updateOne(
     { endpoint: req.params.pagetitle },
     { $unset: { [`modules.${req.body.index}`]: 1 } }
   );
-  await pagesdb.update(
+  await pagesdb.updateOne(
     { endpoint: req.params.pagetitle },
     { $pull: { modules: null } }
   );
