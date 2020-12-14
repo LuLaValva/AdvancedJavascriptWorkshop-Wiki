@@ -83,12 +83,12 @@ app.get("/404notfound", (req, res) => {
 
 // James Reick
 app.get("/newArticleToDB", (req, res) => {
-  let endpoint = req.query["title"].replace(" ", "_").toLowerCase() 
+  let endpoint = req.query["title"].replace(" ", "_").toLowerCase();
   pagesdb.insert({
     endpoint: endpoint,
-  title: req.query["title"],
-  description: "",
-  modules: []
+    title: req.query["title"],
+    description: "",
+    modules: [],
   });
 
   res.redirect(`/page/${endpoint}`);
@@ -133,7 +133,13 @@ app.post("/page/:pagetitle/add_new_module", (req, res) => {
 // Matt Bergen
 app.post("/page/:pagetitle/remove_module", (req, res) => {
   req.body.index;
-  pagesdb.update({}, { $unset: { [`modules.${req.body.index}`]: 1 } });
-  pagesdb.update({}, { $pull: { modules: null } });
+  pagesdb.update(
+    { endpoint: req.params.pagetitle },
+    { $unset: { [`modules.${req.body.index}`]: 1 } }
+  );
+  pagesdb.update(
+    { endpoint: req.params.pagetitle },
+    { $pull: { modules: null } }
+  );
   res.send("success");
 });
