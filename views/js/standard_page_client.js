@@ -22,6 +22,16 @@ function toggleModuleEditMode(element) {
 
 function deleteModule(element) {
   moduleIndex = +element.parentElement.parentElement.id.substring(2);
+  fetch(`${window.location.href}/remove_module`, {
+    method: "POST",
+    headers: new Headers({
+      "Content-Type": "application/json;charset=utf-8",
+    }),
+    body: JSON.stringify({
+      index: moduleIndex,
+    }),
+  });
+
   // TODO:
   // Call some fetch to delete_module, where you pas in the index to "body"
   // Basically copy-paste from updateModuleWithHTTP, but you don't need name or content
