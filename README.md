@@ -4,6 +4,7 @@ Group 2 Project for Advanced Programming Workshop with Professor Levy
 
 Group Members:
 Lucas LaValva
+Zulfikar Ahmed
 Evan O'Donnell
 James Reick
 Nana Adu-abankro
